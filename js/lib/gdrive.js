@@ -24,3 +24,33 @@ function initClient() {
         initApp({showAlert: 'google-init-failed-alert'})
     })
 }
+
+function isGapiLoaded() {
+    return gapi && gapi.auth2
+}
+
+function logIn() {
+    if (isGapiLoaded()) {
+        // откроется стандартное окно Google с выбором аккаунта
+        gapi.auth2.getAuthInstance().signIn()
+    }
+}
+
+function logOut() {
+    if (isGapiLoaded()) {
+        gapi.auth2.getAuthInstance().signOut()
+    }
+}
+
+function isLoggedIn() {
+    return isGapiLoaded() && gapi.auth2.getAuthInstance().isSignedIn.get()
+}
+
+function onSignIn() {
+    if (isLoggedIn()) {
+        // пользователь зашел
+    } else {
+        // пользователь вышел
+    }
+    // пример реализации см. ниже в разделе "Синхронизация"
+}
