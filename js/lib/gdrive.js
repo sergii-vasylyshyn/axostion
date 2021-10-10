@@ -7,11 +7,11 @@ const initClient = () => {
 
     }).then(() => {
         gapi.auth2.getAuthInstance().isSignedIn.listen(onSignIn)
-        initApp()
+        //initApp()
 
     }, error => {
         console.log('Failed to init GAPI client', error)
-        initApp({showAlert: 'google-init-failed-alert'})
+        //initApp({showAlert: 'google-init-failed-alert'})
     })
 }
 
@@ -39,7 +39,7 @@ const onSignIn = () => {
     if (isLoggedIn()) {
 
     } else {
-        
+
     }
 }
 
@@ -57,4 +57,52 @@ const prom = (gapiCall, argObj) => {
             reject(err)
         })
     })
+}
+
+async function createEmptyFile(name, mimeType) {
+    const resp = await prom(gapi.client.drive.files.create, {
+        resource: {
+            name: name,
+            mimeType: mimeType || 'text/plain',
+            parents: ['appDataFolder']
+        },
+        fields: 'id'
+    })
+    return resp.result.id
+}
+
+async function upload(fileId, content) {
+    // функция принимает либо строку, либо объект, который можно сериализовать в JSON
+    return prom(gapi.client.request, {
+        path: `/upload/drive/v3/files/${fileId}`,
+        method: 'PATCH',
+        params: {uploadType: 'media'},
+        body: typeof content === 'string' ? content : JSON.stringify(content)
+    })
+}
+
+async function download(fileId) {
+    const resp = await prom(gapi.client.drive.files.get, {
+        fileId: fileId,
+        alt: 'media'
+    })
+    return resp.result || resp.body
+}
+
+async function find(query) {
+    let ret = []
+    let token
+    do {
+        const resp = await prom(gapi.client.drive.files.list, {
+            spaces: 'appDataFolder',
+            fields: 'files(id, name), nextPageToken',
+            pageSize: 100,
+            pageToken: token,
+            orderBy: 'createdTime',
+            q: query
+        })
+        ret = ret.concat(resp.result.files)
+        token = resp.result.nextPageToken
+    } while (token)
+    return ret
 }
