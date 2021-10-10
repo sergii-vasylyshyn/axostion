@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 import { getData } from './store/Data'
-import Canvas from './View/Canvas'
 
 function Display() {
   const dispatch = useDispatch();
@@ -19,7 +18,6 @@ function Display() {
 
   return (
     <div className="display">
-      <Canvas />
     </div>
   );
 }
