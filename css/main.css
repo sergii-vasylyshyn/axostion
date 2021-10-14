@@ -1,0 +1,33 @@
+.bi-button {
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s all;
+    opacity: 0.4;
+}
+
+.bi-button:hover {
+    opacity: 1;
+}
+
+.form-check * {
+    cursor: pointer;
+}
+
+.form-check label {
+    opacity: 0.7;
+}
+
+.form-check:hover label,
+.form-check input:checked + label {
+    opacity: 1;
+}
+
+.datepicker {
+    z-index: 9999;
+}
+
+button:disabled {
+    opacity: 0.4 !important;
+    pointer-events: visible !important;
+    cursor: not-allowed;
+}

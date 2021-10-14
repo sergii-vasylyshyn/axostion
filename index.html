@@ -3,20 +3,52 @@
   <head>
     <title></title>
     <script>
-        const global = {}
+      const table = [
+          {
+              id: 112,
+              name: "Какой-то продукт 1",
+              count: 15,
+              date_start: '10-10-2021',
+              date_finish: '12-10-2021'
+          },
+          {
+              id: 113,
+              name: "Какой-то продукт 2",
+              count: 15,
+              date_start: '05-10-2021',
+              date_finish: '12-10-2021'
+          },
+          {
+              id: 114,
+              name: "Какой-то продукт 3",
+              count: 15,
+              date_start: '15-10-2021',
+              date_finish: '19-10-2021'
+          }
+      ],
+        components = {}
     </script>
-    <script src="js/google-drive-methods.js"></script>
-    <script src="https://apis.google.com/js/api.js"
-        onload="this.onload=function(){}; gapi.load('client:auth2', initClient)"
-        onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/libs/google-drive-methods.js"></script>
+    <script
+      src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){}; gapi.load('client:auth2', initClient)"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()"
+    ></script>
+    <script src="js/libs/jquery.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/forms.js"></script>
+    <script src="js/libs/datepicker.min.js"></script>
+    <script src="js/libs/locales-dp/ru.js"></script>
+    <script src="js/libs/render.js"></script>
     <script src="js/main.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-icons.css" />
+    <link rel="stylesheet" href="css/datepicker.min.css">
+    <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
+      <div class="container" id="root">
+          <div class="table-wrap" id="table-wrap"></div>
+      </div>
   </body>
 </html>
